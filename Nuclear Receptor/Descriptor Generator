@@ -1,0 +1,188 @@
+
+# coding: utf-8
+
+
+
+import pandas as pd
+import numpy as np
+
+
+
+# Thyroid Hormone Receptor-like receptors 
+data1=pd.read_csv('Thyroid Hormone Receptor-like_curated/3-hydroxyanthranilate 3,4-dioxygenase.txt')
+data2=pd.read_csv('Thyroid Hormone Receptor-like_curated/constitutive androstane receptor.txt')
+# Test
+#! java -jar -Xmx2G PaDEL-Descriptor/PaDEL-Descriptor.jar \
+smiles=pd.DataFrame()
+smiles['SMILES']=data2['CANONICAL_SMILES']
+smiles['comp_id']=data2['CMPD_CHEMBLID']
+print(smiles)
+smiles.to_csv("smiles_data_.smi",sep='\t',index=False,header=0)
+#smiles.to_csv(r'smiles_data.txt', header=None, index=None, sep=' ', mode='a')
+
+
+
+
+#lets try after validating the smiles
+print(type(smiles))
+smiles_data=pd.read_csv("smiles_data.txt",sep='\t')
+
+
+
+smiles_data.columns
+
+
+# In[70]:
+
+
+smiles_data
+
+
+# In[71]:
+
+
+input_smi=pd.read_csv("input.smi")
+print(input_smi)
+print(input_smi.columns)
+
+
+# In[ ]:
+
+
+
+
+
+# In[72]:
+
+
+# Fingerprinter
+get_ipython().system(u' java -jar -Xmx20G PaDEL-Descriptor/PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints Fingerprinter -dir smiles_data_.smi -file  CHEMBL206_IC50-Fingerprinter_smiles.csv')
+
+
+# In[40]:
+
+
+get_ipython().system(u' java -jar -Xmx20G PaDEL-Descriptor/PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints -descriptortypes SubstructureFingerprintCount.xml -dir smiles_data.csv -file  substructurecount_11.csv')
+
+
+# In[2]:
+
+
+# ExtendedFingerprinter
+get_ipython().system(u' java -jar -Xmx20G /Users/zeromtmu/Desktop/2017_run/PaDEL-Descriptor/PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints ExtendedFingerprinter -dir /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50.smi -file  /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50_all-Descriptors/CHEMBL206_IC50-ExtendedFingerprinter.csv')
+
+
+# In[ ]:
+
+
+# EStateFingerprinter
+get_ipython().system(u' java -jar -Xmx2G PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints EStateFingerprinter -dir CHEMBL206_IC50.smi -file  /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50_all-Descriptors/CHEMBL206_IC50-EStateFingerprinter.csv')
+
+
+# In[ ]:
+
+
+# GraphOnlyFingerprinter
+get_ipython().system(u' java -jar -Xmx20G /Users/zeromtmu/Desktop/2017_run/PaDEL-Descriptor/PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints GraphOnlyFingerprinter -dir /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50.smi -file  /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50_all-Descriptors/CHEMBL206_IC50-GraphOnlyFingerprinter.csv')
+
+
+# In[ ]:
+
+
+# MACCSFingerprinter
+get_ipython().system(u' java -jar -Xmx20G /Users/zeromtmu/Desktop/2017_run/PaDEL-Descriptor/PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints MACCSFingerprinter -dir /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50.smi -file  /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50_all-Descriptors/CHEMBL206_IC50-MACCSFingerprinter.csv')
+
+
+# In[ ]:
+
+
+# PubchemFingerprinter
+get_ipython().system(u' java -jar -Xmx20G /Users/zeromtmu/Desktop/2017_run/PaDEL-Descriptor/PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints PubchemFingerprinter -dir /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50.smi -file  /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50_all-Descriptors/CHEMBL206_IC50-PubchemFingerprinter.csv')
+
+
+# In[ ]:
+
+
+# SubstructureFingerprinter
+get_ipython().system(u' java -jar -Xmx20G /Users/zeromtmu/Desktop/2017_run/PaDEL-Descriptor/PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints SubStructure -dir /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50.smi -file  /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50_all-Descriptors/CHEMBL206_IC50-SubStructure.csv')
+
+
+# In[ ]:
+
+
+# SubstructureFingerprintCount
+get_ipython().system(u' java -jar -Xmx20G /Users/zeromtmu/Desktop/2017_run/PaDEL-Descriptor/PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints SubStructureCount -dir /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50.smi -file  /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50_all-Descriptors/CHEMBL206_IC50-SubStructureCount.csv')
+
+
+# In[ ]:
+
+
+# KlekotaRothFingerprinter
+get_ipython().system(u' java -jar -Xmx20G /Users/zeromtmu/Desktop/2017_run/PaDEL-Descriptor/PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints SubStructure -dir /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50.smi -file  /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50_all-Descriptors/CHEMBL206_IC50-KlekotaRothFingerprinter.csv')
+
+
+# In[ ]:
+
+
+# KlekotaRothFingerprintCount
+get_ipython().system(u' java -jar -Xmx20G /Users/zeromtmu/Desktop/2017_run/PaDEL-Descriptor/PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints KlekotaRothFingerprinter -dir /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50.smi -file  /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50_all-Descriptors/CHEMBL206_IC50-KlekotaRothFingerprintCount.csv')
+
+
+# In[ ]:
+
+
+# AtomPairs2DFingerprinter
+get_ipython().system(u' java -jar -Xmx20G /Users/zeromtmu/Desktop/2017_run/PaDEL-Descriptor/PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints AtomPairs2DFingerprinter -dir /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50.smi -file  /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50_all-Descriptors/CHEMBL206_IC50-AtomPairs2DFingerprinter.csv')
+
+
+# In[ ]:
+
+
+# AtomPairs2DFingerprintCount
+get_ipython().system(u' java -jar -Xmx20G /Users/zeromtmu/Desktop/2017_run/PaDEL-Descriptor/PaDEL-Descriptor.jar -removesalt -standardizenitro -standardizetautomers -fingerprints AtomPairs2DFingerprintCount -dir /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50.smi -file  /Users/zeromtmu/Desktop/2017_run/CHEMBL206_IC50/CHEMBL206_IC50_all-Descriptors/CHEMBL206_IC50-AtomPairs2DFingerprintCount.csv')
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+df = pd.read_csv('CHEMBL206_IC50_Regress.csv', header = 0)
+chemID = df[['chemblId']]
+
+
+# In[ ]:
+
+
+chemID = chemID.reset_index(drop=True)
+Fp0 = Fp0.reset_index(drop=True)
+
+
+# In[ ]:
+
+
+Fp0 = pd.read_csv('CHEMBL206_IC50-SubStructureCount.csv', header = 0)
+Fp0 = Fp0.drop('Name', 1)
+
+Fp = chemID.join(Fp0, how='outer')
+
+len(Fp0), len(chemID), len(Fp)
+
+Fp.to_csv('CHEMBL206_IC50_QSAR-SubStructureCount.csv', sep=',' ,index=False)
+
+
+# In[ ]:
+
+
+Fp = chemID.join(Fp0, how='outer')
+len(Fp)
+
+
+# In[ ]:
+
+
+
